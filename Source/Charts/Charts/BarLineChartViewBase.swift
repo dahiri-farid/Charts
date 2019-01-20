@@ -203,6 +203,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         leftYAxisRenderer.renderAxisLine(context: context)
         rightYAxisRenderer.renderAxisLine(context: context)
 
+        leftYAxisRenderer.renderLimitZones(context: context);
+        rightYAxisRenderer.renderLimitZones(context: context);
         // The renderers are responsible for clipping, to account for line-width center etc.
         xAxisRenderer.renderGridLines(context: context)
         leftYAxisRenderer.renderGridLines(context: context)

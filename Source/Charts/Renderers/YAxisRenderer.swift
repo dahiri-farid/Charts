@@ -389,4 +389,51 @@ open class YAxisRenderer: AxisRendererBase
         
         context.restoreGState()
     }
+    
+    open override func renderLimitZones(context: CGContext) {
+    
+        guard
+            let yAxis = self.axis as? YAxis,
+            let transformer = self.transformer
+            else { return }
+        
+        var limitZones = yAxis.limitZones
+        
+        if limitZones.count == 0
+        {
+            return
+        }
+        
+        context.saveGState()
+        
+        let trans = transformer.valueToPixelMatrix
+        
+        var position = CGPoint(x: 0.0, y: 0.0)
+        var points = [CGPoint]()
+        for i in 0 ..< limitZones.count
+        {
+            let limitZone = limitZones[i]
+            points.append(CGPoint(x: Double(self.viewPortHandler.contentLeft), y: limitZone.minValue))
+            points.append(CGPoint(x: Double(self.viewPortHandler.contentLeft), y: limitZone.maxValue))
+            points.append(CGPoint(x: Double(self.viewPortHandler.contentRight), y: limitZone.maxValue))
+            points.append(CGPoint(x: Double(self.viewPortHandler.contentRight), y: limitZone.minValue))
+            
+            self.transformer?.pointValuesToPixel(&points)
+            
+            points[0].x = self.viewPortHandler.contentLeft
+            points[1].x = self.viewPortHandler.contentLeft
+            points[2].x = self.viewPortHandler.contentRight
+            points[3].x = self.viewPortHandler.contentRight
+            
+            context.move(to: points[0])
+            context.addLines(between: points)
+            context.setFillColor(limitZone.backgroundColor.cgColor)
+            context.drawPath(using: CGPathDrawingMode.fill)
+            
+            context.saveGState()
+            defer { context.restoreGState() }
+        }
+        
+        context.restoreGState()
+    }
 }

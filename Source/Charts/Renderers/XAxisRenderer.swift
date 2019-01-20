@@ -317,6 +317,11 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
+    open override func renderLimitZones(context: CGContext)
+    {
+        
+    }
+    
     @objc open var gridClippingRect: CGRect
     {
         var contentRect = viewPortHandler.contentRect

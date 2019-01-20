@@ -62,6 +62,10 @@ open class AxisBase: ComponentBase
     /// array of limitlines that can be set for the axis
     private var _limitLines = [ChartLimitLine]()
     
+    /** array of limit zones that can be set for the axis */
+    private var _limitZones = [ChartLimitZone]();
+
+    
     /// Are the LimitLines drawn behind the data or in front of the data?
     /// 
     /// **default**: false
@@ -277,10 +281,45 @@ open class AxisBase: ComponentBase
         _limitLines.removeAll(keepingCapacity: false)
     }
     
+    /**
+     * Adds a new LimitZone to this axis.
+     * @param limitZone
+     */
+    @objc open func addLimitZone(_ limitZone: ChartLimitZone) {
+        _limitZones.append(limitZone)
+    }
+    
+    /**
+     * Removes the specified LimitZone from the axis.
+     * @param limitZone
+     */
+    @objc open func removeLimitZone(_ limitZone: ChartLimitZone) {
+        for i in 0 ..< _limitZones.count
+        {
+            if _limitZones[i] === limitZone
+            {
+                _limitZones.remove(at: i)
+                return
+            }
+        }
+    }
+    
+    /**
+     * Removes all LimitZones from the axis.
+     */
+    @objc open func removeAllLimitZones() {
+        _limitZones.removeAll(keepingCapacity: false)
+    }
+    
     /// The LimitLines of this axis.
     @objc open var limitLines : [ChartLimitLine]
     {
         return _limitLines
+    }
+    
+    @objc open var limitZones: [ChartLimitZone]
+    {
+        return _limitZones
     }
     
     // MARK: Custom axis ranges

@@ -53,6 +53,11 @@ open class AxisRendererBase: Renderer
         fatalError("renderLimitLines() cannot be called on AxisRendererBase")
     }
     
+    @objc open func renderLimitZones(context: CGContext)
+    {
+        fatalError("renderLimitZones() cannot be called on AxisRendererBase")
+    }
+    
     /// Computes the axis values.
     ///
     /// - Parameters:
