@@ -394,7 +394,7 @@ open class YAxisRenderer: AxisRendererBase
     
         guard
             let yAxis = self.axis as? YAxis,
-            let transformer = self.transformer
+            let _ = self.transformer
             else { return }
         
         var limitZones = yAxis.limitZones
@@ -404,14 +404,9 @@ open class YAxisRenderer: AxisRendererBase
             return
         }
         
-        context.saveGState()
-        
-        let trans = transformer.valueToPixelMatrix
-        
-        var position = CGPoint(x: 0.0, y: 0.0)
-        var points = [CGPoint]()
         for i in 0 ..< limitZones.count
         {
+            var points = [CGPoint]()
             let limitZone = limitZones[i]
             points.append(CGPoint(x: Double(self.viewPortHandler.contentLeft), y: limitZone.minValue))
             points.append(CGPoint(x: Double(self.viewPortHandler.contentLeft), y: limitZone.maxValue))
@@ -425,15 +420,14 @@ open class YAxisRenderer: AxisRendererBase
             points[2].x = self.viewPortHandler.contentRight
             points[3].x = self.viewPortHandler.contentRight
             
+            context.saveGState()
+            context.beginPath()
             context.move(to: points[0])
             context.addLines(between: points)
             context.setFillColor(limitZone.backgroundColor.cgColor)
+            context.closePath()
             context.drawPath(using: CGPathDrawingMode.fill)
-            
-            context.saveGState()
-            defer { context.restoreGState() }
+            context.restoreGState()
         }
-        
-        context.restoreGState()
     }
 }

@@ -81,13 +81,19 @@
     ll2.labelPosition = ChartLimitLabelPositionRightBottom;
     ll2.valueFont = [UIFont systemFontOfSize:10.0];
     
-    ChartLimitZone *limitZone = [[ChartLimitZone alloc] initWithMinValue:0 maxValue:40 backgroundColor:[UIColor blueColor]];
+    ChartLimitZone *greenZone = [[ChartLimitZone alloc] initWithMinValue:0 maxValue:40 backgroundColor:[UIColor greenColor]];
+    ChartLimitZone *yellowZone = [[ChartLimitZone alloc] initWithMinValue:40 maxValue:80 backgroundColor:[UIColor yellowColor]];
+    ChartLimitZone *redZone = [[ChartLimitZone alloc] initWithMinValue:80 maxValue:120 backgroundColor:[UIColor redColor]];
     
     ChartYAxis *leftAxis = _chartView.leftAxis;
     [leftAxis removeAllLimitLines];
     [leftAxis addLimitLine:ll1];
     [leftAxis addLimitLine:ll2];
-    [leftAxis addLimitZone:limitZone];
+    
+    [leftAxis addLimitZone:greenZone];
+    [leftAxis addLimitZone:yellowZone];
+    [leftAxis addLimitZone:redZone];
+    
     leftAxis.axisMaximum = 200.0;
     leftAxis.axisMinimum = -50.0;
     leftAxis.gridLineDashLengths = @[@5.f, @5.f];
