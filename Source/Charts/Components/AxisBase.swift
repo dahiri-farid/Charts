@@ -223,12 +223,12 @@ open class AxisBase: ComponentBase
     }
     
     /// The maximum number of labels on the axis
-    @objc open var axisMaxLabels = Int(25) {
+    @objc open var axisMaxLabels = Int(50) {
         didSet { axisMaxLabels = axisMaxLabels > 0 ? axisMaxLabels : oldValue }
     }
     
     /// the number of label entries the axis should have
-    /// max = 25,
+    /// max = 50,
     /// min = 2,
     /// default = 6,
     /// be aware that this number is not fixed and can only be approximated
