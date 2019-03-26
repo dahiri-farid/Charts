@@ -223,7 +223,7 @@ open class AxisBase: ComponentBase
     }
     
     /// The maximum number of labels on the axis
-    @objc open var axisMaxLabels = Int(50) {
+    @objc open var axisMaxLabels = Int(1000) {
         didSet { axisMaxLabels = axisMaxLabels > 0 ? axisMaxLabels : oldValue }
     }
     
